@@ -10,12 +10,9 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles, withStyles, createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import LockIcon from '@material-ui/icons/Lock'
+// import FormControlLabel from '@material-ui/core/FormControlLabel'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import _ from 'lodash'
 
 const theme = createMuiTheme({
   palette: {
@@ -28,9 +25,23 @@ const theme = createMuiTheme({
   }
 })
 
-const Login = (props) => {
+const Register = (props) => {
   const classes = useStyles()
-  const { email, password, emailError, passwordError, rememberMe, handleChange, handleSubmit, isLoading, serverErrors } = props
+  const {
+    isLoading,
+    firstName,
+    firstNameError,
+    lastName,
+    lastNameError,
+    email,
+    emailError,
+    password,
+    passwordError,
+    passwordConfirmation,
+    passwordConfirmationError,
+    handleChange,
+    handleSubmit
+  } = props
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth='sm'>
@@ -39,28 +50,48 @@ const Login = (props) => {
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Typography component='h2' gutterBottom className={classes.title}>
-                  {'Sign In'}
+                  {'Create an Account'}
                 </Typography>
-                {/*
-                  <Typography variant='body2' gutterBottom component='p' className={classes.subheader}>
-                    {'With your Account'}
-                  </Typography>
-                */}
+                <TextField
+                  required
+                  disabled={isLoading}
+                  error={firstNameError !== null}
+                  id='outlined-firstName'
+                  type='text'
+                  autoFocus
+                  label='First Name'
+                  className={classes.textField}
+                  variant='outlined'
+                  value={firstName || ''}
+                  onChange={(e) => handleChange('firstName', e.target.value)}
+                  margin='normal'
+                />
+                <TextField
+                  required
+                  disabled={isLoading}
+                  error={lastNameError !== null}
+                  id='outlined-lastName'
+                  type='text'
+                  label='Last Name'
+                  className={classes.textField}
+                  variant='outlined'
+                  value={lastName || ''}
+                  onChange={(e) => handleChange('lastName', e.target.value)}
+                  margin='normal'
+                />
                 <TextField
                   required
                   disabled={isLoading}
                   error={emailError !== null}
                   id='outlined-email'
                   type='email'
-                  autoFocus
-                  label='Account Email'
+                  label='Email'
                   className={classes.textField}
                   variant='outlined'
                   value={email || ''}
                   onChange={(e) => handleChange('email', e.target.value)}
                   margin='normal'
                 />
-                {emailError !== null && <span style={{ color: 'red' }}>{emailError}</span>}
                 <TextField
                   required
                   disabled={isLoading}
@@ -74,22 +105,19 @@ const Login = (props) => {
                   onChange={(e) => handleChange('password', e.target.value)}
                   margin='normal'
                 />
-                {passwordError !== null && <span style={{ color: 'red' }}>{passwordError}</span>}
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      disabled={isLoading}
-                      checked={rememberMe}
-                      onChange={(e) => handleChange('rememberMe', e.target.checked)}
-                    />
-                  }
-                  label='Remember Me'
+                <TextField
+                  required
+                  disabled={isLoading}
+                  error={passwordConfirmationError !== null}
+                  id='outlined-password-confirmation'
+                  type='password'
+                  label='Password Confirmation'
+                  className={classes.textField}
+                  variant='outlined'
+                  value={passwordConfirmation || ''}
+                  onChange={(e) => handleChange('passwordConfirmation', e.target.value)}
+                  margin='normal'
                 />
-                {_.map(serverErrors, (err, i) => {
-                  return (
-                    <p style={{ color: 'red' }} key={i}>{err}</p>
-                  )
-                })}
                 {!isLoading &&
                   <div style={{ width: '100%', marginTop: 25 }}>
                     <Button
@@ -103,8 +131,7 @@ const Login = (props) => {
                       }}
                       onClick={() => handleSubmit()}
                     >
-                      <LockIcon className={classes.rightIcon} style={{ marginRight: 5 }} />
-                      {'Sign In'}
+                      {'Create Account'}
                     </Button>
                   </div>
                 }
@@ -115,17 +142,12 @@ const Login = (props) => {
                 }
               </form>
             </CardContent>
-            {!isLoading &&
-              <CardActions style={{ display: 'block', width: '100%' }}>
-                <div style={{ float: 'left' }}>
-                  <Link to='/registration' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginLeft: 2, marginTop: 10, color: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)' }}>Create an Account</Button></Link>
-                </div>
-                <div style={{ width: 'calc(100% - 140px)', float: 'left', textAlign: 'right' }}>
-                  <Link to='/forgot-password' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginTop: 10 }}>I Forgot My Password</Button></Link>
-                </div>
-                <div style={{ clear: 'both' }} />
-              </CardActions>
-            }
+            <CardActions style={{ display: 'block', width: '100%', textAlign: 'right' }}>
+              <div style={{ width: '100%', float: 'left', textAlign: 'right' }}>
+                <Link to='/login' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginTop: 10 }}>Have an Account? Sign In</Button></Link>
+              </div>
+              <div style={{ clear: 'both' }} />
+            </CardActions>
           </Card>
         </Box>
       </Container>
@@ -169,4 +191,4 @@ const styles = {
   }
 }
 
-export default withStyles(styles)(Login)
+export default withStyles(styles)(Register)
