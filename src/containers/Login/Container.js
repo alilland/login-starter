@@ -27,6 +27,12 @@ class Container extends React.Component {
     )
   }
 
+  componentDidMount () {
+    console.log({
+      props: this.props
+    })
+  }
+
   handleChange (field, val) {
     this.setState({ [field]: val })
   }
@@ -44,6 +50,7 @@ class Container extends React.Component {
             file: 'Container.js',
             res: res
           })
+          this.props.handleLogin(true)
         })
         .catch(err => {
           console.error({ err: err.response.data })

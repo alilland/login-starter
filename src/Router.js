@@ -1,24 +1,45 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import Home from './containers/Home'
 import LoginContainer from './containers/Login/Container'
 import Register from './containers/Register/Container'
 import ForgotPassword from './containers/ForgotPassword/Container'
 
 class Router extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isLoggedIn: false
+    }
+  }
   render () {
+    const { isLoggedIn } = this.state
     return (
       <BrowserRouter>
         <div>
           <Route
             exact
             path='/'
-            component={Home}
+            render={() => (!isLoggedIn ? (<Redirect to='/login' />) : (<Route path='/' component={Home} />))}
           />
           <Route
             exact
             path='/login'
-            component={LoginContainer}
+            render={(routeProps) => {
+              if (isLoggedIn) {
+                return (
+                  <Redirect to='/' />
+                )
+              } else {
+                return (
+                  <LoginContainer
+                    {...routeProps}
+                    {...this.props}
+                    handleLogin={(bool) => this.handleLogin(bool)}
+                  />
+                )
+              }
+            }}
           />
           <Route
             exact
@@ -33,6 +54,10 @@ class Router extends React.Component {
         </div>
       </BrowserRouter>
     )
+  }
+  componentDidMount () {}
+  handleLogin (bool) {
+    this.setState({ isLoggedIn: bool })
   }
 }
 
