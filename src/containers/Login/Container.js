@@ -27,12 +27,6 @@ class Container extends React.Component {
     )
   }
 
-  componentDidMount () {
-    console.log({
-      props: this.props
-    })
-  }
-
   handleChange (field, val) {
     this.setState({ [field]: val })
   }
