@@ -10,7 +10,8 @@ class Container extends React.Component {
       lastName: [],
       email: [],
       password: [],
-      checkPassword: []
+      checkPassword: [],
+      passwordConfirmation: []
     }
   }
 

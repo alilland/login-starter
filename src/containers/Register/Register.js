@@ -1,6 +1,7 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -30,126 +31,123 @@ const Register = (props) => {
   const {
     isLoading,
     firstName,
-    firstNameError,
     lastName,
-    lastNameError,
     email,
-    emailError,
     password,
-    passwordError,
     passwordConfirmation,
-    passwordConfirmationError,
     handleChange,
     handleSubmit
   } = props
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth='sm'>
-        <Box my={4}>
-          <Card className={classes.card}>
-            <CardContent>
-              <form onSubmit={e => e.preventDefault()}>
-                <Typography component='h2' gutterBottom className={classes.title}>
-                  {'Create an Account'}
-                </Typography>
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={firstNameError !== null}
-                  id='outlined-firstName'
-                  type='text'
-                  autoFocus
-                  label='First Name'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={firstName || ''}
-                  onChange={(e) => handleChange('firstName', e.target.value)}
-                  margin='normal'
-                />
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={lastNameError !== null}
-                  id='outlined-lastName'
-                  type='text'
-                  label='Last Name'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={lastName || ''}
-                  onChange={(e) => handleChange('lastName', e.target.value)}
-                  margin='normal'
-                />
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={emailError !== null}
-                  id='outlined-email'
-                  type='email'
-                  label='Email'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={email || ''}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  margin='normal'
-                />
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={passwordError !== null}
-                  id='outlined-password'
-                  type='password'
-                  label='Password'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={password || ''}
-                  onChange={(e) => handleChange('password', e.target.value)}
-                  margin='normal'
-                />
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={passwordConfirmationError !== null}
-                  id='outlined-password-confirmation'
-                  type='password'
-                  label='Password Confirmation'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={passwordConfirmation || ''}
-                  onChange={(e) => handleChange('passwordConfirmation', e.target.value)}
-                  margin='normal'
-                />
-                {!isLoading &&
-                  <div style={{ width: '100%', marginTop: 25 }}>
-                    <Button
-                      size='large'
-                      variant='contained'
-                      type='submit'
-                      style={{ width: '100%' }}
-                      classes={{
-                        root: props.classes.root, // class name, e.g. `classes-nesting-root-x`
-                        label: props.classes.label // class name, e.g. `classes-nesting-label-x`
-                      }}
-                      onClick={() => handleSubmit()}
-                    >
-                      {'Create Account'}
-                    </Button>
-                  </div>
-                }
-                {isLoading &&
-                  <div style={{ textAlign: 'center', marginTop: 25 }}>
-                    <CircularProgress />
-                  </div>
-                }
-              </form>
-            </CardContent>
-            <CardActions style={{ display: 'block', width: '100%', textAlign: 'right' }}>
-              <div style={{ width: '100%', float: 'left', textAlign: 'right' }}>
-                <Link to='/login' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginTop: 10 }}>Have an Account? Sign In</Button></Link>
-              </div>
-              <div style={{ clear: 'both' }} />
-            </CardActions>
-          </Card>
-        </Box>
+        <Grid container spacing={0} alignItems={'center'} justify={'center'}>
+          <Box>
+            <Card className={classes.card}>
+              <CardContent>
+                <form onSubmit={e => e.preventDefault()}>
+                  <Typography component='h2' gutterBottom className={classes.title}>
+                    {'Create an Account'}
+                  </Typography>
+                  <TextField
+                    required
+                    disabled={isLoading}
+                    error={firstName[1] !== undefined}
+                    id='outlined-firstName'
+                    type='text'
+                    autoFocus
+                    label='First Name'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={firstName[0] || ''}
+                    onChange={(e) => handleChange('firstName', e.target.value)}
+                    margin='normal'
+                  />
+                  <TextField
+                    required
+                    disabled={isLoading}
+                    error={lastName[1] !== undefined}
+                    id='outlined-lastName'
+                    type='text'
+                    label='Last Name'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={lastName[0] || ''}
+                    onChange={(e) => handleChange('lastName', e.target.value)}
+                    margin='normal'
+                  />
+                  <TextField
+                    required
+                    disabled={isLoading}
+                    error={email[1] !== undefined}
+                    id='outlined-email'
+                    type='email'
+                    label='Email'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={email[0] || ''}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    margin='normal'
+                  />
+                  <TextField
+                    required
+                    disabled={isLoading}
+                    error={password[1] !== undefined}
+                    id='outlined-password'
+                    type='password'
+                    label='Password'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={password[0] || ''}
+                    onChange={(e) => handleChange('password', e.target.value)}
+                    margin='normal'
+                  />
+                  <TextField
+                    required
+                    disabled={isLoading}
+                    error={passwordConfirmation[1] !== undefined}
+                    id='outlined-password-confirmation'
+                    type='password'
+                    label='Password Confirmation'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={passwordConfirmation[0] || ''}
+                    onChange={(e) => handleChange('passwordConfirmation', e.target.value)}
+                    margin='normal'
+                  />
+                  {!isLoading &&
+                    <div style={{ width: '100%', marginTop: 25 }}>
+                      <Button
+                        size='large'
+                        variant='contained'
+                        type='submit'
+                        style={{ width: '100%' }}
+                        classes={{
+                          root: props.classes.root, // class name, e.g. `classes-nesting-root-x`
+                          label: props.classes.label // class name, e.g. `classes-nesting-label-x`
+                        }}
+                        onClick={() => handleSubmit()}
+                      >
+                        {'Create Account'}
+                      </Button>
+                    </div>
+                  }
+                  {isLoading &&
+                    <div style={{ textAlign: 'center', marginTop: 25 }}>
+                      <CircularProgress />
+                    </div>
+                  }
+                </form>
+              </CardContent>
+              <CardActions style={{ display: 'block', width: '100%', textAlign: 'right' }}>
+                <div style={{ width: '100%', float: 'left', textAlign: 'right' }}>
+                  <Link to='/login' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginTop: 10 }}>Have an Account? Sign In</Button></Link>
+                </div>
+                <div style={{ clear: 'both' }} />
+              </CardActions>
+            </Card>
+          </Box>
+        </Grid>
       </Container>
     </ThemeProvider>
   )
@@ -159,7 +157,7 @@ const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
     maxWidth: 380,
-    marginLeft: `calc(50% - ${380 / 2}px)`
+    marginTop: 20
   },
   title: {
     fontSize: 24,

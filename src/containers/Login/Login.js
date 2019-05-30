@@ -1,6 +1,7 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -34,100 +35,102 @@ const Login = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth='sm'>
-        <Box my={4}>
-          <Card className={classes.card}>
-            <CardContent>
-              <form onSubmit={e => e.preventDefault()}>
-                <Typography component='h2' gutterBottom className={classes.title}>
-                  {'Sign In'}
-                </Typography>
-                {/*
-                  <Typography variant='body2' gutterBottom component='p' className={classes.subheader}>
-                    {'With your Account'}
+        <Grid container spacing={0} alignItems={'center'} justify={'center'}>
+          <Box>
+            <Card className={classes.card}>
+              <CardContent>
+                <form onSubmit={e => e.preventDefault()}>
+                  <Typography component='h2' gutterBottom className={classes.title}>
+                    {'Sign In'}
                   </Typography>
-                */}
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={emailError !== null}
-                  id='outlined-email'
-                  type='email'
-                  autoFocus
-                  label='Account Email'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={email || ''}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  margin='normal'
-                />
-                {emailError !== null && <span style={{ color: 'red' }}>{emailError}</span>}
-                <TextField
-                  required
-                  disabled={isLoading}
-                  error={passwordError !== null}
-                  id='outlined-password'
-                  type='password'
-                  label='Password'
-                  className={classes.textField}
-                  variant='outlined'
-                  value={password || ''}
-                  onChange={(e) => handleChange('password', e.target.value)}
-                  margin='normal'
-                />
-                {passwordError !== null && <span style={{ color: 'red' }}>{passwordError}</span>}
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      disabled={isLoading}
-                      checked={rememberMe}
-                      onChange={(e) => handleChange('rememberMe', e.target.checked)}
-                    />
+                  {/*
+                    <Typography variant='body2' gutterBottom component='p' className={classes.subheader}>
+                      {'With your Account'}
+                    </Typography>
+                  */}
+                  <TextField
+                    required
+                    autoFocus
+                    disabled={isLoading}
+                    error={emailError !== null}
+                    id='outlined-email'
+                    type='email'
+                    label='Account Email'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={email || ''}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    margin='normal'
+                  />
+                  {emailError !== null && <span style={{ color: 'red' }}>{emailError}</span>}
+                  <TextField
+                    required
+                    disabled={isLoading}
+                    error={passwordError !== null}
+                    id='outlined-password'
+                    type='password'
+                    label='Password'
+                    className={classes.textField}
+                    variant='outlined'
+                    value={password || ''}
+                    onChange={(e) => handleChange('password', e.target.value)}
+                    margin='normal'
+                  />
+                  {passwordError !== null && <span style={{ color: 'red' }}>{passwordError}</span>}
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        disabled={isLoading}
+                        checked={rememberMe}
+                        onChange={(e) => handleChange('rememberMe', e.target.checked)}
+                      />
+                    }
+                    label='Remember Me'
+                  />
+                  {_.map(serverErrors, (err, i) => {
+                    return (
+                      <p style={{ color: 'red' }} key={i}>{err}</p>
+                    )
+                  })}
+                  {!isLoading &&
+                    <div style={{ width: '100%', marginTop: 25 }}>
+                      <Button
+                        size='large'
+                        variant='contained'
+                        type='submit'
+                        style={{ width: '100%' }}
+                        classes={{
+                          root: props.classes.root, // class name, e.g. `classes-nesting-root-x`
+                          label: props.classes.label // class name, e.g. `classes-nesting-label-x`
+                        }}
+                        onClick={() => handleSubmit()}
+                      >
+                        <LockIcon className={classes.rightIcon} style={{ marginRight: 5 }} />
+                        {'Sign In'}
+                      </Button>
+                    </div>
                   }
-                  label='Remember Me'
-                />
-                {_.map(serverErrors, (err, i) => {
-                  return (
-                    <p style={{ color: 'red' }} key={i}>{err}</p>
-                  )
-                })}
-                {!isLoading &&
-                  <div style={{ width: '100%', marginTop: 25 }}>
-                    <Button
-                      size='large'
-                      variant='contained'
-                      type='submit'
-                      style={{ width: '100%' }}
-                      classes={{
-                        root: props.classes.root, // class name, e.g. `classes-nesting-root-x`
-                        label: props.classes.label // class name, e.g. `classes-nesting-label-x`
-                      }}
-                      onClick={() => handleSubmit()}
-                    >
-                      <LockIcon className={classes.rightIcon} style={{ marginRight: 5 }} />
-                      {'Sign In'}
-                    </Button>
+                  {isLoading &&
+                    <div style={{ textAlign: 'center', marginTop: 25 }}>
+                      <CircularProgress />
+                    </div>
+                  }
+                </form>
+              </CardContent>
+              {!isLoading &&
+                <CardActions style={{ display: 'block', width: '100%' }}>
+                  <div style={{ float: 'left' }}>
+                    <Link to='/registration' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginLeft: 2, marginTop: 10, color: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)' }}>Create an Account</Button></Link>
                   </div>
-                }
-                {isLoading &&
-                  <div style={{ textAlign: 'center', marginTop: 25 }}>
-                    <CircularProgress />
+                  <div style={{ width: 'calc(100% - 140px)', float: 'left', textAlign: 'right' }}>
+                    <Link to='/forgot-password' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginTop: 10 }}>I Forgot My Password</Button></Link>
                   </div>
-                }
-              </form>
-            </CardContent>
-            {!isLoading &&
-              <CardActions style={{ display: 'block', width: '100%' }}>
-                <div style={{ float: 'left' }}>
-                  <Link to='/registration' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginLeft: 2, marginTop: 10, color: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)' }}>Create an Account</Button></Link>
-                </div>
-                <div style={{ width: 'calc(100% - 140px)', float: 'left', textAlign: 'right' }}>
-                  <Link to='/forgot-password' style={{ textDecoration: 'none' }}><Button size='small' style={{ marginTop: 10 }}>I Forgot My Password</Button></Link>
-                </div>
-                <div style={{ clear: 'both' }} />
-              </CardActions>
-            }
-          </Card>
-        </Box>
+                  <div style={{ clear: 'both' }} />
+                </CardActions>
+              }
+            </Card>
+          </Box>
+        </Grid>
       </Container>
     </ThemeProvider>
   )
@@ -137,7 +140,7 @@ const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
     maxWidth: 380,
-    marginLeft: `calc(50% - ${380 / 2}px)`
+    marginTop: 20
   },
   title: {
     fontSize: 24,

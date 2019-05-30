@@ -4,14 +4,18 @@ import ForgotPassword from './ForgotPassword'
 class Container extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      emailError: null
+    }
   }
 
   render () {
     return (
-      <ForgotPassword
-        {...this.state}
-      />
+      <div>
+        <ForgotPassword
+          {...this.state}
+        />
+      </div>
     )
   }
 }

@@ -7,6 +7,9 @@ import Home from './containers/Home'
 import LoginContainer from './containers/Login/Container'
 import Register from './containers/Register/Container'
 import ForgotPassword from './containers/ForgotPassword/Container'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
 
 const ColorCircularProgress = withStyles({
   root: {
@@ -74,20 +77,24 @@ class Router extends React.Component {
     }
     if (isLoading) {
       return (
-        <div style={{ textAlign: 'center', height: '100vh', position: 'relative' }}>
-          <ColorCircularProgress
-            size={90}
-            style={{
-              background: 'rgba(221,221,221, 0.50)',
-              borderRadius: 100,
-              padding: 5,
-              textAlign: 'center',
-              margin: 0,
-              position: 'absolute',
-              top: '40%'
-            }}
-          />
-        </div>
+        <Container maxWidth='sm'>
+          <Grid container spacing={0} alignItems={'center'} justify={'center'}>
+            <Box style={{ paddingTop: '50%' }}>
+              <ColorCircularProgress
+                size={90}
+                style={{
+                  background: 'rgba(221,221,221, 0.50)',
+                  borderRadius: 100,
+                  padding: 5,
+                  // textAlign: 'center',
+                  margin: 0,
+                  // position: 'absolute',
+                  top: '40%'
+                }}
+              />
+            </Box>
+          </Grid>
+        </Container>
       )
     }
   }
