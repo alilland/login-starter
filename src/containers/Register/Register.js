@@ -31,13 +31,31 @@ const Register = (props) => {
   const {
     isLoading,
     firstName,
+    firstNameError,
     lastName,
+    lastNameError,
     email,
+    emailError,
     password,
+    passwordError,
     passwordConfirmation,
+    passwordConfirmationError,
     handleChange,
     handleSubmit
   } = props
+
+  let disableSubmit = false
+  if (!firstName) disableSubmit = true
+  if (!lastName) disableSubmit = true
+  if (!email) disableSubmit = true
+  if (!password) disableSubmit = true
+  if (!passwordConfirmation) disableSubmit = true
+  if (firstNameError) disableSubmit = true
+  if (lastNameError) disableSubmit = true
+  if (emailError) disableSubmit = true
+  if (passwordError) disableSubmit = true
+  if (passwordConfirmationError) disableSubmit = true
+
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth='sm'>
@@ -52,69 +70,86 @@ const Register = (props) => {
                   <TextField
                     required
                     disabled={isLoading}
-                    error={firstName[1] !== undefined}
+                    error={firstNameError !== null}
                     id='outlined-firstName'
                     type='text'
                     autoFocus
                     label='First Name'
                     className={classes.textField}
                     variant='outlined'
-                    value={firstName[0] || ''}
-                    onChange={(e) => handleChange('firstName', e.target.value)}
+                    value={firstName || ''}
+                    onChange={(e) => {
+                      handleChange('firstName', e.target.value)
+                    }}
                     margin='normal'
                   />
+                  {firstNameError && <span style={{ color: 'red' }}>{firstNameError}</span>}
                   <TextField
                     required
                     disabled={isLoading}
-                    error={lastName[1] !== undefined}
+                    error={lastNameError !== null}
                     id='outlined-lastName'
                     type='text'
                     label='Last Name'
                     className={classes.textField}
                     variant='outlined'
-                    value={lastName[0] || ''}
-                    onChange={(e) => handleChange('lastName', e.target.value)}
+                    value={lastName || ''}
+                    onChange={(e) => {
+                      handleChange('lastName', e.target.value)
+                    }}
                     margin='normal'
                   />
+                  {lastNameError && <span style={{ color: 'red' }}>{lastNameError}</span>}
                   <TextField
                     required
                     disabled={isLoading}
-                    error={email[1] !== undefined}
+                    error={emailError !== null}
                     id='outlined-email'
                     type='email'
                     label='Email'
                     className={classes.textField}
                     variant='outlined'
-                    value={email[0] || ''}
-                    onChange={(e) => handleChange('email', e.target.value)}
+                    value={email || ''}
+                    onChange={(e) => {
+                      handleChange('email', e.target.value)
+                    }}
                     margin='normal'
                   />
+                  {emailError && <span style={{ color: 'red' }}>{emailError}</span>}
                   <TextField
                     required
                     disabled={isLoading}
-                    error={password[1] !== undefined}
+                    error={passwordError !== null}
                     id='outlined-password'
-                    type='password'
+                    // type='password'
                     label='Password'
                     className={classes.textField}
                     variant='outlined'
-                    value={password[0] || ''}
-                    onChange={(e) => handleChange('password', e.target.value)}
+                    value={password || ''}
+                    onChange={(e) => {
+                      handleChange('password', e.target.value)
+                    }}
+                    maxLength={130}
                     margin='normal'
                   />
+                  {passwordError && <span style={{ color: 'red' }}>{passwordError}</span>}
                   <TextField
                     required
                     disabled={isLoading}
-                    error={passwordConfirmation[1] !== undefined}
+                    error={passwordConfirmationError !== null}
                     id='outlined-password-confirmation'
                     type='password'
                     label='Password Confirmation'
                     className={classes.textField}
                     variant='outlined'
-                    value={passwordConfirmation[0] || ''}
-                    onChange={(e) => handleChange('passwordConfirmation', e.target.value)}
+                    value={passwordConfirmation || ''}
+                    onChange={(e) => {
+                      handleChange('passwordConfirmation', e.target.value)
+                    }}
+                    maxLength={'130'}
                     margin='normal'
                   />
+                  {passwordConfirmationError && <span style={{ color: 'red' }}>{passwordConfirmationError}</span>}
                   {!isLoading &&
                     <div style={{ width: '100%', marginTop: 25 }}>
                       <Button
@@ -123,9 +158,10 @@ const Register = (props) => {
                         type='submit'
                         style={{ width: '100%' }}
                         classes={{
-                          root: props.classes.root, // class name, e.g. `classes-nesting-root-x`
-                          label: props.classes.label // class name, e.g. `classes-nesting-label-x`
+                          root: props.classes.root,
+                          label: props.classes.label
                         }}
+                        disabled={disableSubmit}
                         onClick={() => handleSubmit()}
                       >
                         {'Create Account'}

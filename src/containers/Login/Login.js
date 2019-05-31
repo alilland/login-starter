@@ -43,11 +43,6 @@ const Login = (props) => {
                   <Typography component='h2' gutterBottom className={classes.title}>
                     {'Sign In'}
                   </Typography>
-                  {/*
-                    <Typography variant='body2' gutterBottom component='p' className={classes.subheader}>
-                      {'With your Account'}
-                    </Typography>
-                  */}
                   <TextField
                     required
                     autoFocus
